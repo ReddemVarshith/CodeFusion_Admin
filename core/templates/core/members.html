@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<header style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2rem; font-weight: 800;">All Participants</h1>
+    <p style="color: var(--text-secondary);">Total members: {{ members.count }}</p>
+</header>
+
+<div class="glass" style="padding: 1.5rem; margin-bottom: 2rem;">
+    <form method="get"
+        style="display: grid; grid-template-columns: 1fr 1fr 150px 150px auto; gap: 1rem; align-items: end;">
+        <div class="input-group" style="margin-bottom: 0;">
+            <label
+                style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">SEARCH</label>
+            <input type="text" name="search" value="{{ search_query|default:'' }}"
+                placeholder="Name, Email, Roll No...">
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+            <label
+                style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">COLLEGE</label>
+            <input type="text" name="college" value="{{ request.GET.college|default:'' }}"
+                placeholder="Filter by college...">
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+            <label
+                style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">CODE</label>
+            <input type="text" name="college_code" value="{{ request.GET.college_code|default:'' }}"
+                placeholder="Code...">
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+            <label
+                style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">TSHIRT</label>
+            <select name="tshirt_size" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="S" {% if request.GET.tshirt_size == 'S' %}selected{% endif %}>S</option>
+                <option value="M" {% if request.GET.tshirt_size == 'M' %}selected{% endif %}>M</option>
+                <option value="L" {% if request.GET.tshirt_size == 'L' %}selected{% endif %}>L</option>
+                <option value="XL" {% if request.GET.tshirt_size == 'XL' %}selected{% endif %}>XL</option>
+                <option value="XXL" {% if request.GET.tshirt_size == 'XXL' %}selected{% endif %}>XXL</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+
+<div class="glass" style="padding: 1.5rem;">
+    <div class="data-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>College</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>T-Shirt</th>
+                    <th>Team</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                <tr>
+                    <td style="font-weight: 600;">{{ member.name }}</td>
+                    <td>{{ member.roll_no }}</td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary);">{{ member.college_name }}</td>
+                    <td>{{ member.phone_number }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.tshirt_size }}</td>
+                    <td style="color: var(--accent-blue);">{{ member.team.team_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

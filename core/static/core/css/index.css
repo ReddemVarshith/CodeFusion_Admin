@@ -1,0 +1,223 @@
+:root {
+    --bg-dark: #050505;
+    --card-bg: rgba(20, 20, 20, 0.7);
+    --accent-blue: #00d2ff;
+    --accent-purple: #9d50bb;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(12px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+.glass {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: var(--glass-blur);
+    border-right: 1px solid var(--border-color);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 2rem;
+}
+
+/* Sidebar Links */
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.nav-link i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Dashboard Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table Design */
+.data-table-container {
+    margin-top: 2rem;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Buttons and Inputs */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+input,
+select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 0.8rem;
+    border-radius: 8px;
+    width: 100%;
+}
+
+input::placeholder {
+    color: #666;
+}
+
+/* Login Page */
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+        padding: 2rem 0.5rem;
+    }
+
+    .nav-brand {
+        font-size: 1rem;
+    }
+
+    .nav-link span {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 80px;
+    }
+}

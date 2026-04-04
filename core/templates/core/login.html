@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block login_content %}
+<div class="login-container">
+    <div class="login-card glass">
+        <h2 class="nav-brand" style="margin-bottom: 2rem;">ADMIN LOGIN</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username"
+                    style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">USERNAME</label>
+                <input type="text" name="username" id="username" placeholder="Enter username" required>
+            </div>
+            <div class="input-group">
+                <label for="password"
+                    style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">PASSWORD</label>
+                <input type="password" name="password" id="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-top: 1rem;">SIGN
+                IN</button>
+            {% if form.errors %}
+            <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 1rem; text-align: center;">Invalid username or
+                password.</p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}

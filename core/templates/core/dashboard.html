@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<header style="margin-bottom: 3rem;">
+    <h1 style="font-size: 2rem; font-weight: 800;">Welcome back, {{ user.username }}</h1>
+    <p style="color: var(--text-secondary);">Manage registration data and see real-time updates.</p>
+</header>
+
+<div class="stats-grid">
+    <div class="stat-card glass">
+        <span class="stat-label">Total Teams</span>
+        <span class="stat-value" style="color: var(--accent-blue);">{{ total_teams }}</span>
+    </div>
+    <div class="stat-card glass">
+        <span class="stat-label">Total Participants</span>
+        <span class="stat-value" style="color: var(--accent-purple);">{{ total_members }}</span>
+    </div>
+    {% for stat in team_size_stats %}
+    <div class="stat-card glass">
+        <span class="stat-label">Size {{ stat.team_size }} Teams</span>
+        <span class="stat-value">{{ stat.count }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="glass" style="padding: 2rem;">
+    <h2 style="margin-bottom: 2rem;">Recent Registrations</h2>
+    <div class="data-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Team Name</th>
+                    <th>Size</th>
+                    <th>UTR ID</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in recent_teams %}
+                <tr>
+                    <td style="font-weight: 600;">{{ team.team_name }}</td>
+                    <td>{{ team.team_size }}</td>
+                    <td style="color: var(--text-secondary);">{{ team.utr_id|default:"N/A" }}</td>
+                    <td>{{ team.created_at|date:"M d, H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top: 2rem; text-align: right;">
+        <a href="{% url 'team_list' %}" class="btn btn-primary" style="text-decoration: none;">View All Teams</a>
+    </div>
+</div>
+{% endblock %}
