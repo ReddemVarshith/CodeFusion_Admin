@@ -1,9 +1,16 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<header style="margin-bottom: 2rem;">
-    <h1 style="font-size: 2rem; font-weight: 800;">All Participants</h1>
-    <p style="color: var(--text-secondary);">Total members: {{ members.count }}</p>
+<header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1 style="font-size: 2rem; font-weight: 800;">All Participants</h1>
+        <p style="color: var(--text-secondary);">Total members: {{ members.count }}</p>
+    </div>
+    <div>
+        <a href="{% url 'export_to_excel' %}" class="btn btn-primary" style="background-color: #107c41; color: white; display: inline-flex; align-items: center;">
+            <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i> Export to Excel
+        </a>
+    </div>
 </header>
 
 <div class="glass" style="padding: 1.5rem; margin-bottom: 2rem;">

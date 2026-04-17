@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('teams/', views.team_list, name='team_list'),
     path('members/', views.member_list, name='member_list'),
+    path('export/excel/', views.export_to_excel, name='export_to_excel'),
 ]

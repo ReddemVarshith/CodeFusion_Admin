@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
 from .models import Team, TeamMember
+import csv
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -83,3 +85,21 @@ def member_list(request):
         'search_query': search_query,
     }
     return render(request, 'core/members.html', context)
+
+@login_required
+def export_to_excel(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="teams_data.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['team name', 'team member name', 'member_email'])
+
+    members = TeamMember.objects.select_related('team').all()
+    for member in members:
+        # User format requires member_email, I'll use the email field from the model.
+        writer.writerow([
+            member.team.team_name,
+            member.name,
+            member.email,
+        ])
+    return response
