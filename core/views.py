@@ -92,7 +92,7 @@ def export_to_excel(request):
     response['Content-Disposition'] = 'attachment; filename="teams_data.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['team name', 'team member name', 'member_email'])
+    writer.writerow(['team name', 'team member name', 'member_email', 'phone number'])
 
     members = TeamMember.objects.select_related('team').all()
     for member in members:
@@ -101,5 +101,6 @@ def export_to_excel(request):
             member.team.team_name,
             member.name,
             member.email,
+            member.phone_number,
         ])
     return response
