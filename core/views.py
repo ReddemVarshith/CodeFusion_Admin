@@ -104,3 +104,32 @@ def export_to_excel(request):
             member.phone_number,
         ])
     return response
+
+@login_required
+def export_college_team_count(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="college_team_count.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['College code', 'No.ofteams'])
+
+    # Count each team exactly once using its first member's college code
+    teams = Team.objects.prefetch_related('members').all()
+    college_counts = {}
+    
+    for team in teams:
+        members = team.members.all()
+        code = members[0].college_code if members else 'No Members'
+        code = str(code).upper() # Normalize casing to prevent duplicates
+        college_counts[code] = college_counts.get(code, 0) + 1
+
+    # Sort so the highest count is on top
+    sorted_counts = sorted(college_counts.items(), key=lambda x: x[1], reverse=True)
+    
+    for code, count in sorted_counts:
+        writer.writerow([
+            code,
+            f"{count} teams"
+        ])
+        
+    return response

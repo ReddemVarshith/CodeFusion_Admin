@@ -6,7 +6,10 @@
         <h1 style="font-size: 2rem; font-weight: 800;">Welcome back, {{ user.username }}</h1>
         <p style="color: var(--text-secondary);">Manage registration data and see real-time updates.</p>
     </div>
-    <div>
+    <div style="display: flex; gap: 1rem;">
+        <a href="{% url 'export_college_team_count' %}" class="btn btn-primary" style="background-color: #107c41; color: white; display: inline-flex; align-items: center;">
+            <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i> Export Team Wise Count
+        </a>
         <a href="{% url 'export_to_excel' %}" class="btn btn-primary" style="background-color: #107c41; color: white; display: inline-flex; align-items: center;">
             <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i> Export to Excel
         </a>
