@@ -119,8 +119,25 @@ def export_college_team_count(request):
     
     for team in teams:
         members = team.members.all()
-        code = members[0].college_code if members else 'No Members'
-        code = str(code).upper() # Normalize casing to prevent duplicates
+        
+        if not members:
+            code = 'No Members'
+        else:
+            from collections import Counter
+            college_codes = [str(m.college_code).upper().strip() for m in members if m.college_code and str(m.college_code).strip()]
+            
+            if college_codes:
+                counts = Counter(college_codes)
+                most_common = counts.most_common(1)
+                
+                if most_common[0][1] > 1:
+                    code = most_common[0][0]
+                else:
+                    code = members[0].college_code if members[0].college_code else 'No College Code'
+            else:
+                code = 'No College Code'
+                
+        code = str(code).upper().strip() if code and str(code).strip() else 'NO COLLEGE CODE'
         college_counts[code] = college_counts.get(code, 0) + 1
 
     # Sort so the highest count is on top
